@@ -144,7 +144,7 @@
   position: absolute;
   top: 10%;       /* Adjust to move text vertically */
   left: 3%;       /* Adjust to move text horizontally */
-  color: #00AEEF;
+  color: #576c74;
   font-family: Arial, sans-serif;
 }
 
@@ -158,11 +158,12 @@
   list-style: none;
   padding: 0;
   margin: 0 0 1rem 0;
-  color: #00AEEF;
+  color: #161825;
+  background-color: #d3cdcd;
 }
 
 .btn-own {
-  background-color: #00AEEF;
+  background-color: #202324;
   color: white;
   padding: 8px 16px;
   text-decoration: none;
