@@ -1,10 +1,10 @@
 --incase the data base is deleted i should run this code
 
 CREATE TYPE public.account_type AS ENUM
-    ('Employee', 'Admin');
+    ('Client', 'Employee', 'Admin');
 
 ALTER TYPE public.account_type
-    OWNER TO cse340fam_user;
+    OWNER TO fam340;
 
 
 
