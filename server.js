@@ -20,10 +20,10 @@ app.use(express.static("public"));
 
 
 //index route
-app.get("/", function(req, res){
-  res.render("index", {title: "Home"})
-})
 app.get("/", baseController.buildHome)
+
+//Inventory Routes
+app.listen("/inv", inventoryRoute)
 
 
 app.use(static)
