@@ -257,3 +257,28 @@ a:hover {
 }
 
 
+.vehicle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.vehicle-info {
+    max-width: 600px;
+}
+
+@media (min-width: 768px) {
+    .vehicle-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .vehicle-info {
+        text-align: left;
+    }
+}
+
+
+

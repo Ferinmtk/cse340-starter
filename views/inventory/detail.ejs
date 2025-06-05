@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= vehicleView.make %> <%= vehicleView.model %></title>
+    <link rel="stylesheet" href="/styles/inventory.css">
+</head>
+<body>
+    <main>
+        <div class="vehicle-container">
+            <img src="<%= vehicleView.image_url %>" alt="<%= vehicleView.make %> <%= vehicleView.model %>">
+            <div class="vehicle-info">
+                <h1><%= vehicleView.make %> <%= vehicleView.model %> (<%= vehicleView.year %>)</h1>
+                <p><strong>Price:</strong> $<%= vehicleView.price.toLocaleString() %></p>
+                <p><strong>Mileage:</strong> <%= vehicleView.mileage.toLocaleString() %> miles</p>
+                <p><%= vehicleView.description %></p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
