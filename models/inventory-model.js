@@ -40,5 +40,24 @@ async function getClassifications() {
     }
 }
 
-module.exports = { getClassifications, getInventoryByClassification };
+async function getVehicleById(invId) {
+    try {
+        const data = await pool.query(
+            "SELECT inv_id, inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_image, inv_thumbnail FROM public.inventory WHERE inv_id = $1",
+            [invId]
+        );
+
+        if (data.rowCount === 0) {
+            throw new Error("No vehicle found with ID " + invId);
+        }
+
+        return data.rows[0]; 
+    } catch (error) {
+        console.error("Database Error:", error);
+        throw error; // Ensures the error gets caught by the controller
+    }
+}
+
+
+module.exports = { getVehicleById, getClassifications, getInventoryByClassification };
 

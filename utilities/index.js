@@ -46,16 +46,18 @@ module.exports = Util;
 
 
 // Function to wrap vehicle HTML details
-Util.wrapVehicleHTML = function(vehicle) {
+Util.buildVehicleHTML = function(vehicle) {
     return `
-    <div class="vehicle-detail">
-        <h1>${vehicle.make} ${vehicle.model} (${vehicle.year})</h1>
-        <img src="${vehicle.image_url}" alt="${vehicle.make} ${vehicle.model}">
-        <p><strong>Price:</strong> $${vehicle.price.toLocaleString()}</p>
-        <p><strong>Mileage:</strong> ${vehicle.mileage.toLocaleString()} miles</p>
-        <p>${vehicle.description}</p>
-    </div>
-    `;
+        <div class="vehicle-detail">
+            <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+            <div class="vehicle-info">
+                <h1>${vehicle.inv_make} ${vehicle.inv_model}</h1>
+                <p><strong>Year:</strong> ${vehicle.inv_year}</p>
+                <p><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>
+                <p><strong>Mileage:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</p>
+                <p>${vehicle.inv_description}</p>
+            </div>
+        </div>`;
 };
 
 // Correctly exporting all functions together

@@ -23,4 +23,21 @@ invController.buildByClassificationId = async function(req, res) {
 
 };
 
+invController.buildDetailView = async function(req, res) {
+    const invId = req.params.inventoryId; // Get inventory ID from URL
+    const vehicleData = await invModel.getVehicleById(invId); // Fetch vehicle details
+    const nav = await utilities.getNav(); // Generate navigation
+
+    if (!vehicleData) {
+        res.status(404).render("error", { title: "Vehicle Not Found", nav });
+        return;
+    }
+
+    res.render("inventory/detail", { 
+        title: `${vehicleData.inv_make} ${vehicleData.inv_model}`, 
+        nav, 
+        vehicle: vehicleData // ✅ Ensures 'vehicle' is passed to 'detail.ejs'
+    });
+};
+
 module.exports = invController;

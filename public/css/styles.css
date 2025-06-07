@@ -282,3 +282,30 @@ a:hover {
 
 
 
+.vehicle-detail {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
+    align-items: center;
+}
+
+.vehicle-detail img {
+    max-width: 50%;
+    border-radius: 8px;
+}
+
+.vehicle-info {
+    max-width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+    .vehicle-detail {
+        flex-direction: column;
+    }
+
+    .vehicle-detail img,
+    .vehicle-info {
+        max-width: 100%;
+    }
+}

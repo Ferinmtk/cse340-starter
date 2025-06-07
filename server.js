@@ -12,6 +12,8 @@ const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
+const utilities = require("./utilities/index");
+
 
 
 
@@ -31,6 +33,21 @@ app.use(express.static("public"));
 
 
 app.use(static)
+
+// Error Handling Middleware
+// Error Handling Middleware
+app.use(async (err, req, res, next) => {
+    console.error(`Error: ${err.message}`); // Logs error details
+
+    const nav = await utilities.getNav(); // ✅ Ensure it's properly awaited
+    res.status(err.status || 500).render("error", {
+        title: "Application Error",
+        message: err.message || "Something went wrong!",
+        nav,
+    });
+});
+
+
 
 /* ***********************
  * Local Server Information
