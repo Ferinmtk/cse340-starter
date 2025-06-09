@@ -60,5 +60,13 @@ Util.buildVehicleHTML = function(vehicle) {
         </div>`;
 };
 
+// Function to handle async errors in route controllers
+Util.handleErrors = function (fn) {
+  return function (req, res, next) {
+    return fn(req, res, next).catch(next);
+  };
+};
+
+
 // Correctly exporting all functions together
 module.exports = Util;

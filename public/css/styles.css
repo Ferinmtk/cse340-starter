@@ -309,3 +309,26 @@ a:hover {
         max-width: 100%;
     }
 }
+
+
+
+.account-form {
+  max-width: 400px;
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.account-form input,
+.account-form button {
+  padding: 0.5em;
+  font-size: 1em;
+}
+
+.flash-message {
+  background-color: #ffefc2;
+  border-left: 4px solid #ff9800;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
