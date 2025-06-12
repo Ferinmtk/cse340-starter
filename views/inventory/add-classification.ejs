@@ -1,0 +1,31 @@
+<main>
+  <h1>Add a New Classification</h1>
+
+  <% if (error && error.length) { %>
+    <p class="error"><%= error[0] %></p>
+  <% } %>
+
+  <% if (success && success.length) { %>
+    <p class="success"><%= success[0] %></p>
+  <% } %>
+
+  <form id="classificationForm" action="/inv/add-classification" method="POST">
+    <label for="classification_name">Classification Name:</label>
+    <input type="text" id="classification_name" name="classification_name"
+      value="<%= typeof classification_name !== 'undefined' ? classification_name : '' %>"
+      required pattern="^[A-Za-z]+$"
+      title="Only letters allowed. No spaces or special characters.">
+    <button type="submit">Add Classification</button>
+  </form>
+</main>
+
+<script>
+  document.getElementById('classificationForm').addEventListener('submit', function (event) {
+    const name = document.getElementById('classification_name').value;
+    const regex = /^[A-Za-z]+$/;
+    if (!regex.test(name)) {
+      event.preventDefault();
+      alert("Only letters allowed. No spaces or special characters.");
+    }
+  });
+</script>

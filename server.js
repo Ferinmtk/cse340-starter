@@ -14,6 +14,8 @@ const expressLayouts = require("express-ejs-layouts");
 require("dotenv").config();
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 const static = require("./routes/static");
@@ -21,6 +23,7 @@ const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
 const utilities = require("./utilities/index");
 const accountRoute = require("./routes/accountRoute");
+const flash = require("connect-flash");
 
 
 
@@ -68,6 +71,7 @@ app.get("/", baseController.buildHome);
 app.use("/inv", inventoryRoute);
 app.use(static);
 app.use("/account", accountRoute);
+app.use(flash());
 
 /* ***********************
  * Error Handling Middleware
@@ -75,17 +79,19 @@ app.use("/account", accountRoute);
 app.use(async (err, req, res, next) => {
     console.error(`Error: ${err.message}`);
     const nav = await utilities.getNav();
-    res.status(err.status || 500).render("error", {
+    res.status(err.status || 500).render("errors/error", {
         title: "Application Error",
         message: err.message || "Something went wrong!",
         nav,
     });
 });
 
+
+
 /* ***********************
  * Server Activation
  *************************/
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`app listening on port ${PORT}`);
 });

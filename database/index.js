@@ -25,4 +25,3 @@ module.exports = {
   },
 };
 
-console.log("Connecting to DB at:", process.env.DATABASE_URL);
