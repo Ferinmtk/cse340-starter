@@ -1,11 +1,9 @@
-/* styles/inventory.css */
-
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f8f9fa;
-  color: #333;
+  background-color: #f4f4f6;
+  color: #222; /* Improved contrast */
 }
 
 main {
@@ -19,7 +17,7 @@ main {
   max-width: 1000px;
   display: flex;
   gap: 2rem;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   padding: 2rem;
@@ -31,7 +29,7 @@ main {
   max-width: 450px;
   border-radius: 8px;
   object-fit: cover;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 .vehicle-info {
@@ -44,30 +42,28 @@ main {
 .vehicle-info h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #0077cc;
+  color: #043a70; /* Higher contrast blue */
 }
 
 .vehicle-info p {
   font-size: 1.1rem;
   line-height: 1.6;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: #333; /* Stronger contrast */
 }
 
 .vehicle-info strong {
-  color: #444;
+  color: #111; /* Nearly black for emphasis */
 }
 
-/* Responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
   .vehicle-container {
     flex-direction: column;
     align-items: center;
   }
 
-  .vehicle-info h1 {
-    text-align: center;
-  }
-
+  .vehicle-info h1,
   .vehicle-info {
     text-align: center;
   }
