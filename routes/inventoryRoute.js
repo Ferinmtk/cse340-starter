@@ -25,13 +25,7 @@ router.post(
   utilities.handleErrors(invController.addClassification)
 );
 
-// Show add-inventory form
-router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
-
-// Handle new inventory submission
-router.post("/add-inventory", utilities.handleErrors(invController.addInventory));
-
-// Default route to redirect to management page (optional, if you want `/inv/` to go to management)
-router.get("/", (req, res) => res.redirect("/inv/management"));
+router.use("/edit", authorizeInventory);
+router.use("/delete", authorizeInventory);
 
 module.exports = router;

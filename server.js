@@ -9,6 +9,10 @@
 const cookieParser = require("cookie-parser")
 const session = require("express-session")
 const pool = require('./database/')
+const checkJWT = require("./middleware/checkJWT");
+
+
+
 
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
@@ -34,7 +38,9 @@ const flash = require("connect-flash");
 /* ***********************
  * Middleware
  * ************************/
- app.use(session({
+ app.use(cookieParser()); // ✅ parse cookies first
+
+app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
     pool,
@@ -45,7 +51,7 @@ const flash = require("connect-flash");
   name: 'sessionId',
 }));
 
-
+app.use(checkJWT); // ✅ now this works properly
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
@@ -53,8 +59,6 @@ app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 });
-app.use(cookieParser())
-
 
 
 /* ***********************
@@ -88,6 +92,10 @@ app.use(async (err, req, res, next) => {
 });
 
 
+app.use((req, res, next) => {
+    res.locals.account = req.account || null;
+    next();
+});
 
 /* ***********************
  * Server Activation
