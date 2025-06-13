@@ -20,5 +20,12 @@ router.post(
 // New registration route
 router.get('/register', utilities.handleErrors(accountController.buildRegister));
 
+router.post(
+  "/register",
+  regValidate.registrationRules(),
+  regValidate.checkRegData,
+  utilities.handleErrors(accountController.registerAccount)
+)
+
 // Export the router
 module.exports = router;

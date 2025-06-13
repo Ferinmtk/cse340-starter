@@ -31,6 +31,7 @@ Util.getNav = async function () {
   return list;
 };
 
+
 // Build classification grid
 Util.buildClassificationGrid = function (data) {
   let grid;
@@ -80,6 +81,20 @@ Util.handleErrors = function (fn) {
     return fn(req, res, next).catch(next);
   };
 };
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+}
+
+
 
 // Final single export
 module.exports = Util;
