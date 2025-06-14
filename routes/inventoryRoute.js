@@ -4,6 +4,8 @@ const router = new express.Router();
 const invController = require("../controllers/invController"); 
 const utilities = require("../utilities/");
 const classValidate = require("../utilities/classification-validation");
+const authorizeInventory = require("../middleware/authorizeInventory");
+
 
 // Route to Management View
 router.get("/management", utilities.handleErrors(invController.buildManagementView));

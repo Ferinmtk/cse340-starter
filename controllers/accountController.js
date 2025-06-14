@@ -4,20 +4,17 @@ require("dotenv").config();
 const utilities = require("../utilities/");
 const accountModel = require("../models/account-model");
 
-
-
 /* ****************************************
  *  Deliver registration view
  * **************************************** */
-
-
-function buildRegister(req, res, next) {
+function buildRegister(req, res) {
   res.render("account/register", {
     title: "Register",
     nav: res.locals.nav || [],
     errors: null,
     success: req.flash("success"),
     error: req.flash("error"),
+    message: req.flash("message"),
     account_firstname: "",
     account_lastname: "",
     account_email: ""
@@ -27,22 +24,16 @@ function buildRegister(req, res, next) {
 /* ****************************************
  *  Deliver login view
  * **************************************** */
-
-function buildLogin(req, res, next) {
+function buildLogin(req, res) {
   res.render("account/login", {
     title: "Login",
     nav: res.locals.nav || [],
     errors: null,
-    message: req.flash("message"),
     success: req.flash("success"),
     error: req.flash("error"),
+    message: req.flash("message")
   });
 }
-
-/* ****************************************
- *  Deliver registration view
- * **************************************** */
-
 
 /* ****************************************
  *  Process account login
@@ -53,12 +44,15 @@ async function accountLogin(req, res) {
   const accountData = await accountModel.getAccountByEmail(account_email);
 
   if (!accountData) {
-    req.flash("notice", "Please check your credentials and try again.");
+    req.flash("message", "Please check your credentials and try again.");
     return res.status(400).render("account/login", {
       title: "Login",
       nav,
       errors: null,
       account_email,
+      success: [],
+      error: [],
+      message: req.flash("message")
     });
   }
 
@@ -70,28 +64,34 @@ async function accountLogin(req, res) {
       const cookieOptions = {
         httpOnly: true,
         maxAge: 3600000,
-        ...(process.env.NODE_ENV !== "development" && { secure: true }),
+        ...(process.env.NODE_ENV !== "development" && { secure: false }),
       };
 
       res.cookie("jwt", accessToken, cookieOptions);
-      return res.redirect("/account/");
+      return res.redirect("/accounts/");
     } else {
-      req.flash("notice", "Please check your credentials and try again.");
+      req.flash("message", "Please check your credentials and try again.");
       return res.status(400).render("account/login", {
         title: "Login",
         nav,
         errors: null,
         account_email,
+        success: [],
+        error: [],
+        message: req.flash("message")
       });
     }
   } catch (error) {
     console.error("Login error:", error);
-    req.flash("notice", "Something went wrong. Please try again.");
+    req.flash("message", "Something went wrong. Please try again.");
     return res.status(500).render("account/login", {
       title: "Login",
       nav,
       errors: null,
       account_email,
+      success: [],
+      error: [],
+      message: req.flash("message")
     });
   }
 }
@@ -114,7 +114,7 @@ async function registerAccount(req, res) {
 
     if (result) {
       req.flash("success", "Account successfully registered. Please log in.");
-      return res.redirect("/account/login"); // ✅ ensure return
+      return res.redirect("/accounts/login");
     } else {
       const error = ["Registration failed. Please try again."];
       return res.status(400).render("account/register", {
@@ -125,7 +125,7 @@ async function registerAccount(req, res) {
         account_firstname,
         account_lastname,
         account_email
-      }); // ✅ ensure return
+      });
     }
   } catch (error) {
     console.error("Registration error:", error);
@@ -138,89 +138,132 @@ async function registerAccount(req, res) {
       account_firstname,
       account_lastname,
       account_email
-    }); // ✅ ensure return
+    });
   }
 }
 
-
+/* ****************************************
+ *  Account Management Page
+ * **************************************** */
 function getAccountManagement(req, res) {
-    if (!req.account) {
-        return res.redirect("/accounts/login");
-    }
-    res.render("account/manage", { account: req.account });
+  if (!req.account) {
+    req.flash("error", "Unauthorized access");
+    return res.redirect("/accounts/login");
+  }
+  res.render("account/manage", {
+    title: "Account Management",
+    nav: res.locals.nav,
+    account: req.account,
+    success: req.flash("success"),
+    error: req.flash("error")
+  });
 }
 
-
+/* ****************************************
+ *  Account Update View
+ * **************************************** */
 function getAccountUpdateView(req, res) {
-    if (!req.account) return res.redirect("/accounts/login");
-    res.render("account/update", { account: req.account });
+  if (!req.account) {
+    req.flash("error", "Unauthorized");
+    return res.redirect("/accounts/login");
+  }
+  res.render("account/update", {
+    title: "Update Account",
+    nav: res.locals.nav,
+    account: req.account,
+    errors: null,
+    success: req.flash("success"),
+    error: req.flash("error")
+  });
 }
 
-function updateAccount(req, res) {
-    const { first_name, last_name, email, account_id } = req.body;
-    if (!first_name || !last_name || !email) {
-        return res.render("account/update", { errors: "All fields are required.", account: req.body });
-    }
-    // Perform database update logic
-}
-
-function updatePassword(req, res) {
-    const { password, account_id } = req.body;
-    if (password.length < 8) {
-        return res.render("account/update", { errors: "Password must be at least 8 characters.", account: req.body });
-    }
-    // Perform password hashing and database update
-}
-
-
-
-
-
-function getAccountUpdateView(req, res) {
-    if (!req.account) return res.redirect("/accounts/login");
-    res.render("account/update", { account: req.account });
-}
-
+/* ****************************************
+ *  Update Account Info
+ * **************************************** */
 async function updateAccount(req, res) {
-    const { first_name, last_name, email, account_id } = req.body;
-    if (!first_name || !last_name || !email) {
-        return res.render("account/update", { errors: "All fields are required.", account: req.body });
+  const nav = await utilities.getNav();
+  const { first_name, last_name, email, account_id } = req.body;
+
+  if (!first_name || !last_name || !email) {
+    return res.render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: ["All fields are required."],
+      account: req.body
+    });
+  }
+
+  try {
+    const existingAccount = await accountModel.getAccountByEmail(email);
+    if (existingAccount && existingAccount.account_id !== parseInt(account_id)) {
+      return res.render("account/update", {
+        title: "Update Account",
+        nav,
+        errors: ["Email already in use."],
+        account: req.body
+      });
     }
 
-    try {
-        const existingAccount = await accountModel.getAccountByEmail(email);
-        if (existingAccount && existingAccount.id !== account_id) {
-            return res.render("account/update", { errors: "Email already in use.", account: req.body });
-        }
-
-        await accountModel.updateAccountInfo(account_id, first_name, last_name, email);
-        res.redirect("/accounts/manage?success=Account updated successfully");
-    } catch (error) {
-        res.render("account/update", { errors: "An error occurred.", account: req.body });
-    }
+    await accountModel.updateAccountInfo(account_id, first_name, last_name, email);
+    req.flash("success", "Account updated successfully.");
+    return res.redirect("/accounts/manage");
+  } catch (error) {
+    return res.render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: ["An error occurred while updating the account."],
+      account: req.body
+    });
+  }
 }
 
-const bcrypt = require("bcrypt");
-
+/* ****************************************
+ *  Update Password
+ * **************************************** */
 async function updatePassword(req, res) {
-    const { password, account_id } = req.body;
-    if (password.length < 8) {
-        return res.render("account/update", { errors: "Password must be at least 8 characters.", account: req.body });
-    }
+  const nav = await utilities.getNav();
+  const { password, account_id } = req.body;
 
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await accountModel.updatePassword(account_id, hashedPassword);
-        res.redirect("/accounts/manage?success=Password updated successfully");
-    } catch (error) {
-        res.render("account/update", { errors: "An error occurred.", account: req.body });
-    }
+  if (!password || password.length < 8) {
+    return res.render("account/update", {
+      title: "Update Password",
+      nav,
+      errors: ["Password must be at least 8 characters long."],
+      account: req.body
+    });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await accountModel.updatePassword(account_id, hashedPassword);
+    req.flash("success", "Password updated successfully.");
+    return res.redirect("/accounts/manage");
+  } catch (error) {
+    return res.render("account/update", {
+      title: "Update Password",
+      nav,
+      errors: ["An error occurred while updating the password."],
+      account: req.body
+    });
+  }
 }
 
-
+/* ****************************************
+ *  Logout
+ * **************************************** */
 function logout(req, res) {
-    res.clearCookie("jwt");  // Remove the authentication token
-    res.redirect("/?message=Logged out successfully");
+  res.clearCookie("jwt");
+  res.redirect("/?message=Logged out successfully");
 }
 
-module.exports = { buildLogin, buildRegister, accountLogin, registerAccount };
+module.exports = {
+  buildLogin,
+  buildRegister,
+  accountLogin,
+  registerAccount,
+  getAccountManagement,
+  getAccountUpdateView,
+  updateAccount,
+  updatePassword,
+  logout
+};

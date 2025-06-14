@@ -7,7 +7,6 @@ const regValidate = require('../utilities/account-validation');
 const { validateAccountUpdate, validatePasswordUpdate } = require("../middleware/validation");
 
 
-
 // Route to build login view
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
@@ -29,15 +28,16 @@ router.post(
   utilities.handleErrors(accountController.registerAccount)
 )
 
-router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccount))
+// Home page of account section 
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.getAccountManagement));
 
 // Logout route
-router.get("/logout", accountController.logoutClient);
 
-router.get("/manage", getAccountManagement);
-router.get("/update", getAccountUpdateView);
-router.post("/update", validateAccountUpdate, updateAccount);
-router.post("/update-password", validatePasswordUpdate, updatePassword);
+router.get("/manage", accountController.getAccountManagement);
+router.get("/update", accountController.getAccountUpdateView);
+router.post("/update", validateAccountUpdate, accountController.updateAccount);
+router.post("/update-password", validatePasswordUpdate, accountController.updatePassword);
+
 router.get("/logout", accountController.logout);
 
 // Export the router

@@ -38,7 +38,7 @@ const flash = require("connect-flash");
 /* ***********************
  * Middleware
  * ************************/
- app.use(cookieParser()); // ✅ parse cookies first
+ app.use(cookieParser()); 
 
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
@@ -51,7 +51,6 @@ app.use(session({
   name: 'sessionId',
 }));
 
-app.use(checkJWT); // ✅ now this works properly
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
