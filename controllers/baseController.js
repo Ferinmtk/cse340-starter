@@ -1,16 +1,25 @@
-const invModel = require("../models/inventory-model");
-const utilities = require("../utilities/");
-const baseController = {};
+const utilities = require("../utilities/")
+const reviewModel = require("../models/review-model")
+const baseController = {}
 
-baseController.buildHome = async function(req, res) {
-    try {
-        
-        const nav = await utilities.getNav(); // Generate navigation using classifications
-              res.render("index", { title: "Home", nav });
-    } catch (error) {
-        console.error("Error in buildHome:", error.message);
-        res.status(500).send("An error occurred while building the home page.");
-    }
-};
+baseController.buildHome = async function(req, res){
+  const nav = await utilities.getNav()
+  try {
+    // Get the latest reviews
+    const reviews = await reviewModel.getLatestReviews()
+    res.render("index", {
+      title: "Home", 
+      nav,
+      reviews
+    })
+  } catch (error) {
+    console.error("Error in buildHome:", error)
+    res.render("index", {
+      title: "Home", 
+      nav,
+      reviews: []
+    })
+  }
+}
 
-module.exports = baseController;
+module.exports = baseController

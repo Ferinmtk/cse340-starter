@@ -1,31 +1,25 @@
-<main>
-  <h1>Add a New Classification</h1>
+<% if (title) { %>
+  <h1><%= title %></h1>
+  <% } else {
+    res.redirect('/')
+  } %>
 
-  <% if (error && error.length) { %>
-    <p class="error"><%= error[0] %></p>
-  <% } %>
+<%- messages() %>
 
-  <% if (success && success.length) { %>
-    <p class="success"><%= success[0] %></p>
-  <% } %>
-
-  <form id="classificationForm" action="/inv/add-classification" method="POST">
+<div class="form-container">
+  <form id="addClassForm" action="/inv/add-classification" method="post">
+    <p>Classification name cannot contain spaces or special characters.</p>
+    
     <label for="classification_name">Classification Name:</label>
-    <input type="text" id="classification_name" name="classification_name"
-      value="<%= typeof classification_name !== 'undefined' ? classification_name : '' %>"
-      required pattern="^[A-Za-z]+$"
-      title="Only letters allowed. No spaces or special characters.">
+    <input 
+      type="text" 
+      id="classification_name" 
+      name="classification_name"
+      pattern="[A-Za-z]+" 
+      required
+      title="Classification name can only contain letters, no spaces or special characters"
+    >
+    
     <button type="submit">Add Classification</button>
   </form>
-</main>
-
-<script>
-  document.getElementById('classificationForm').addEventListener('submit', function (event) {
-    const name = document.getElementById('classification_name').value;
-    const regex = /^[A-Za-z]+$/;
-    if (!regex.test(name)) {
-      event.preventDefault();
-      alert("Only letters allowed. No spaces or special characters.");
-    }
-  });
-</script>
+</div>

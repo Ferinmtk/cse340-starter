@@ -1,30 +1,43 @@
-<h1>Register</h1>
-<!-- Flash Success Message -->
-<% if (typeof success !== 'undefined' && success.length > 0) { %>
-  <p class="success"><%= success[0] %></p>
+<% if (title) { %>
+  <h1><%= title %></h1>
 <% } %>
 
-<!-- Flash Error Message -->
-<% if (typeof error !== 'undefined' && error.length > 0) { %>
-  <p class="error"><%= error[0] %></p>
+<%- messages() %>
+
+<div class="login-form">
+  <form id="registerForm" action="/account/register" method="post">
+    <label for="firstname">First Name:</label>
+    <input type="text" id="firstname" name="account_firstname" required>
+
+    <label for="lastname">Last Name:</label>
+    <input type="text" id="lastname" name="account_lastname" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required placeholder="Enter a valid email address" name="account_email" required>
+
+    <label for="password">Password:</label>
+    <div class="password-input">
+      <input type="password" id="password" name="account_password" required 
+        pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?=.*[a-z]).{12,}$"
+        autocomplete="new-password">
+      <span id="showPassword" class="password-toggle">Show</span>
+    </div>
+    <p class="password-requirements">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</p>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <p>Already have an account? <a href="/account/login">Login</a></p>
+</div>
+
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
 <% } %>
 
+<script src="../js/script.js"></script>
 
-<form action="/account/register" method="POST">
-  <label for="first_name">First Name:</label>
-  <input type="text" name="account_firstname" id="first_name" required 
-         value="<%= typeof account_firstname !== 'undefined' ? account_firstname : '' %>">
-
-  <label for="last_name">Last Name:</label>
-  <input type="text" name="account_lastname" id="last_name" required 
-         value="<%= typeof account_lastname !== 'undefined' ? account_lastname : '' %>">
-
-  <label for="email">Email:</label>
-  <input type="email" name="account_email" id="email" required 
-         value="<%= typeof account_email !== 'undefined' ? account_email : '' %>">
-
-  <label for="password">Password:</label>
-  <input type="password" name="account_password" id="password" required>
-
-  <button type="submit">Register</button>
-</form>
+ 

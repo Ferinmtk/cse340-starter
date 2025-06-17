@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('../partials/head') %>
-
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%- title %> | CSE 340 App</title>
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+    <link rel="stylesheet" href="/css/mobile.css" media="screen">
+    <link rel="stylesheet" href="/css/home_page.css" media="screen">
+    <link rel="stylesheet" href="/css/vehicle_classes_page.css" media="screen">
+    <link rel="stylesheet" href="/css/form.css" media="screen">
+    <link rel="stylesheet" href="/css/vehicle_detail_page.css" media="screen">
+    <script src="/js/script.js" defer></script>
+</head>
 <body>
     <div id="wrapper">
         <%- include('../partials/header') %>
         <%- include('../partials/navigation') %>
-
-         <main>
+        <main >
             <%- body %>
-         </main>
+        </main>
 
-         <%- include('../partials/footer') %>
-        
+        <%- include('../partials/footer') %>
     </div>
-    
 </body>
 </html>

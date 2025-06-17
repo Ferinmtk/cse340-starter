@@ -1,0 +1,46 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<% if (locals.accountData) { %>
+  <h2>Welcome <%= locals.accountData.account_firstname %></h2>
+  
+  <div class="account-management-grid">
+    <a href="/account/update/<%= locals.accountData.account_id %>" class="account-card">
+      <div class="card-icon">
+        <span class="icon-user"></span>
+      </div>
+      <h3>Update Account</h3>
+      <p>Modify your account information and settings</p>
+    </a>
+    
+    <a href="/reviews/user-reviews" class="account-card">
+      <div class="card-icon">
+        <span class="icon-star"></span>
+      </div>
+      <h3>Your Reviews</h3>
+      <p>View and manage your vehicle reviews</p>
+    </a>
+
+    <% if (locals.accountData.account_type === "Employee" || locals.accountData.account_type === "Admin") { %>
+      <a href="/inv/" class="account-card">
+        <div class="card-icon">
+          <span class="icon-car"></span>
+        </div>
+        <h3>Inventory Management</h3>
+        <p>Manage vehicle inventory and classifications</p>
+      </a>
+    <% } %>
+  </div>
+<% } %>
+

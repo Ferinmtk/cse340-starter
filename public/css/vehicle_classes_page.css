@@ -1,0 +1,365 @@
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Roboto', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+    background: url('/images/site/small_check.jpg') repeat;
+    margin: 0;
+    padding: 0;
+}
+
+.entryText h1 {
+    margin-top: 40px;
+    font-size: 1.7rem;
+    font-family: var(--font-heading);
+}
+
+#wrapper {
+    background-color: white;
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 5px solid #00b3e6;
+    border-radius: 15px;
+    max-width: 1090px;
+    padding: 0 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styles */
+#top-header {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    gap: 1em;
+}
+
+.siteName a {
+    font-size: 2rem;
+    color: #000;
+    text-decoration: none;
+}
+
+#tools a {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Navigation Styles */
+nav {
+    background-color: #1a1a1a;
+    padding: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0 8rem;
+}
+
+nav ul li {
+    padding: 0.5rem 0;
+    padding: 5px;
+}
+
+nav ul li a {
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+}
+
+nav ul li:hover {
+    background: #00b3e6;
+    text-decoration: none;
+    padding: 5px;
+    transition: 0.6s;
+}
+
+nav ul li a:hover {
+    color: #000;
+    transition: 0.7s;
+}
+
+nav ul li.active {
+    color: #000;
+    background-color: #00b3e6;
+}
+
+nav ul li.active a {
+    color: #000;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    margin: 3rem 0;
+    margin-left: 7rem;
+}
+
+.hero img {
+    max-width: 100%;
+    height: auto;
+}
+
+.hero-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 1rem;
+    margin: 1rem;
+    margin-left: -5rem;
+}
+
+.hero-text h3 {
+    color: #00b3e6;
+    margin-bottom: 1rem;
+}
+
+.hero-text ul {
+    list-style: none;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.button-blue {
+    background-color: #00b3e6;
+    color: #000;
+    border: none;
+    padding: 0.7rem 2rem;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.button-blue:hover {
+    background-color: #000;
+    color: #fff;
+    transition: 0.7s;
+}
+
+/* Content Section */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+/* Reviews Section */
+#reviews h2 {
+    margin-bottom: 1rem;
+}
+
+#reviews ul {
+    list-style: disc;
+    padding-left: 2rem;
+    margin-top: 3.4rem;
+    font-size: 1.4rem;
+}
+
+#reviews li {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    font-family: var(--font-body);
+}
+
+/* Upgrades Section */
+#upgrades h2 {
+    margin-bottom: 1rem;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 1.4rem;
+  column-gap: 1rem;
+  padding: 0rem;
+  margin-top: 3.4rem;
+}
+
+
+.caption-image {
+    text-align: center;
+}
+
+.caption-image div {
+    background-color: #00b3e6;
+    width: 250px;
+    height: 110px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.caption-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.caption-image p a {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 11rem;
+}
+
+.caption-image p a:hover {
+    color: #00b3e6 !important;
+    transition: 0.5s !important;
+}
+
+.caption-image p {
+    margin-top: 0.4rem;
+}
+
+/* Footer */
+footer {
+    text-align: left;
+    padding: 1.5rem 0;
+}
+
+
+/* ERROR BUTTON */
+.error-button {
+  display: inline-block;
+  padding: 6px 7px;
+  color: #fff;
+  background-color: #e74c3c; /* Red color for error */
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.error-button:hover {
+  background-color: #c0392b; /* Darker red on hover */
+}
+
+.error-button:active {
+  background-color: #a93226; /* Even darker red on active click */
+}
+
+.error-button:focus {
+  outline: 2px solid #e74c3c;
+  outline-offset: 2px;
+}
+
+
+/* VECHICLE LISTING PAGE ====================================================*/
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --accent-color: #e74c3c;
+    --background-color: #ecf0f1;
+    --text-color: #34495e;
+    --card-background: #ffffff;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+    --transition-speed: 0.3s;
+  }
+
+  #inv-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    list-style: none;
+    background-color: var(--background-color, #f9f9f9);
+  }
+  
+  #inv-display li {
+    background-color: var(--card-background, #fff);
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  #inv-display li:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  #inv-display img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    transition: transform 0.3s ease;
+  }
+  
+  #inv-display li:hover img {
+    transform: scale(1.05);
+  }
+  
+  .namePrice {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .namePrice hr {
+    border: none;
+    height: 2px;
+    background-color: var(--primary-color, #00b3e6);
+    margin: 1rem 0;
+  }
+  
+  .namePrice h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--secondary-color, #333);
+  }
+  
+  .namePrice a {
+    text-decoration: none;
+    color: var(--link-color, #0073e6);
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .namePrice a:hover {
+    color: var(--primary-color, #00b3e6);
+  }
+  
+  .namePrice span {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent-color, #e6007e);
+  }
+  
+  .notice {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--accent-color, #e6007e);
+    margin: 2rem 0;
+  }
+

@@ -1,6 +1,0 @@
-<h2>Welcome <%= locals.account.first_name %></h2>
-<% if (["Employee", "Admin"].includes(locals.account.type)) { %>
-    <h3>Inventory Management</h3>
-    <p><a href="/inventory/manage">Access Inventory Management</a></p>
-<% } %>
-<p><a href="/accounts/update?account_id=<%= locals.account.id %>">Update Account Information</a></p>

@@ -1,0 +1,31 @@
+.error-container {
+  text-align: center;
+  padding: 2em;
+  margin: 2em auto;
+  max-width: 600px;
+  background-color: #f8d7da;
+  border-radius: 5px;
+}
+
+.error-container h1 {
+  color: #721c24;
+  margin-bottom: 1em;
+}
+
+.error-container p {
+  color: #721c24;
+  margin-bottom: 1em;
+}
+
+.error-container a {
+  display: inline-block;
+  padding: 0.5em 1em;
+  background-color: #721c24;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 3px;
+}
+
+.error-container a:hover {
+  background-color: #5c171d;
+} 

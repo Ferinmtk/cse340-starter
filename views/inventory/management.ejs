@@ -1,18 +1,20 @@
-<link rel="stylesheet" href="/css/manage.css">
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } %>
 
-<main>
-  <h1>Manage Inventory</h1>
+<%- messages() %>
 
-  <% if (success && success.length) { %>
-    <div class="flash-message success"><%= success %></div>
-  <% } %>
+<div class="management-links">
+  <p><a href="/inv/add-classification">Add New Classification</a></p>
+  <p><a href="/inv/add-inventory">Add New Vehicle</a></p>
+</div>
 
-  <% if (error && error.length) { %>
-    <div class="flash-message error"><%= error %></div>
-  <% } %>
+<h2>Manage Inventory</h2>
+<p>Select a classification to see those inventory items</p>
 
-  <ul>
-    <li><a href="/inv/add-classification">Add New Classification</a></li>
-    <li><a href="/inv/add-inventory">Add New Inventory</a></li>
-  </ul>
-</main>
+<%- classificationSelect %>
+
+<table id="inventoryDisplay"></table>
+
+
+<script src="../../js/inventory.js"></script>

@@ -1,27 +1,27 @@
-const { Pool } = require("pg");
-require("dotenv").config();
+const { Pool } = require("pg")
+require("dotenv").config()
 
-const isRender = process.env.DATABASE_URL?.includes("render.com");
-
+/* ***************
+ * Connection Pool
+ * SSL Object needed for both local testing and production
+ * *************** */
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ...(isRender && {
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  }),
-});
+  ssl: {
+    rejectUnauthorized: false,
+  },
+})
 
+// Added for troubleshooting queries
 module.exports = {
   async query(text, params) {
     try {
-      const res = await pool.query(text, params);
-      console.log("Executed query:", text);
-      return res;
+      const res = await pool.query(text, params)
+      console.log("executed query", { text })
+      return res
     } catch (error) {
-      console.error("Error in query:", text, error);
-      throw error;
+      console.error("error in query", { text })
+      throw error
     }
   },
-};
-
+}

@@ -1,0 +1,294 @@
+/* Mobile Breakpoint */
+@media screen and (max-width: 767px) {
+  /* Wrapper adjustments */
+  #wrapper {
+    width: 100%;
+    margin: 0;
+    border: none;
+    padding: 0.5em;
+  }
+
+  /* Header adjustments */
+  #top-header {
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+  }
+
+  .siteName {
+    margin-bottom: 1em;
+    text-align: center;
+  }
+
+  /* Navigation adjustments */
+  nav {
+    padding: 0;
+  }
+
+  nav ul {
+    justify-content: flex-start;
+    margin: 0;
+    gap: 0;
+  }
+
+  nav li {
+    flex: 0 0 auto;
+  }
+
+  nav a {
+    /* padding: 0.8em 0.8em; */
+    flex-direction: row;
+    font-size: 0.8em;
+    text-align: center;
+  }
+
+  /* Hero section adjustments */
+  .hero {
+    min-height: 300px;
+  }
+
+  .hero-content {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 1em;
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Vehicle grid adjustments */
+  .vehicle-grid {
+    flex-direction: column;
+    gap: 1em;
+    margin: 1em 0;
+  }
+
+  /* Upgrades section */
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 1em;
+  }
+
+  .upgrade-item {
+    margin-bottom: 1em;
+  }
+
+  .upgrade-item img {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  /* Reviews section */
+  .reviews {
+    padding: 0.5em;
+  }
+
+  .review-item {
+    margin-bottom: 1.5em;
+    padding: 0.5em;
+  }
+
+  .review-item h3 {
+    font-size: 1.1em;
+  }
+
+  /* Button adjustments */
+  .cta-button {
+    width: 100%;
+    padding: 1em;
+    margin-top: 1em;
+  }
+
+  /* Footer adjustments */
+  footer  {
+    padding: 1em 0.5em;
+    display: flex;
+    text-align: center;
+  }
+
+  /* Tools container adjustments */
+  #tools {
+    margin-top: 1em;
+    text-align: center;
+  }
+  
+ 
+  /* For very small screens */
+  @media screen and (max-width: 480px) {
+    nav a {
+      padding:0.2em;
+      font-size: 0.75em;
+    }
+  }
+}
+
+/* Smaller mobile devices */
+@media screen and (max-width: 480px) {
+  nav a {
+    padding: 0.2em;
+    font-size: 0.9em;
+  }
+
+  .siteName a {
+    font-size: 1.2em;
+  }
+
+  .hero-content h2 {
+    font-size: 1.2em;
+  }
+
+  .upgrade-item img {
+    max-width: 150px;
+  }
+}
+
+/* Landscape orientation */
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  .hero {
+    min-height: 200px;
+  }
+
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* Detail Page  */
+
+
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    #inv-display {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    #inv-display img {
+      height: 150px;
+    }
+
+    .namePrice h2 {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #inv-display {
+      grid-template-columns: 1fr;
+    }
+
+    #inv-display img {
+      height: 180px;
+    }
+  }
+
+  /* Beautiful, modern buttons */
+  .button {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+  }
+
+  .button-secondary {
+    background-color: var(--secondary-color);
+  }
+
+  .button-secondary:hover {
+    background-color: var(--primary-color);
+  }
+
+  /* Additional responsive typography */
+  html {
+    font-size: 16px;
+  }
+
+  @media (max-width: 768px) {
+    html {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    html {
+      font-size: 12px;
+    }
+  }
+
+
+  /* Responsive design */
+  @media (max-width: 992px) {
+    .vehicle-display {
+      grid-template-columns: 1fr 1fr;
+      /* gap: 2rem; */
+    }
+  }
+
+  @media (max-width: 768px) {
+    .vehicle-display {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .vehicle-display img {
+      grid-column: 1;
+      grid-row: 1;
+      max-height: 300px;
+      padding-right: 0rem;
+    }
+
+    .vehicle-display h2,
+    .vehicle-display .price,
+    .vehicle-displayp:not(.price):not(.description),
+    .vehicle-display .description {
+      grid-column: 1;
+      grid-row: auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .vehicle-display {
+      padding: 1rem;
+    }
+
+    .vehicle-display h2 {
+      font-size: 1.5rem;
+    }
+
+    .vehicle-display .price {
+      font-size: 1.3rem;
+    }
+
+    .vehicle-display p:not(.price):not(.description) {
+      font-size: 0.9rem;
+    }
+  }
+
+
+/* Detail page */
+
+ /* Responsive design */
+ @media (max-width: 768px) {
+  #vehicle-display {
+    padding: 1rem;
+  }
+
+  .vehicle-display {
+    padding: 1rem;
+  }
+}
